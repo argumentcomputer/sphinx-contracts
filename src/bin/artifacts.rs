@@ -29,5 +29,7 @@ fn main() -> Result<()> {
         )?;
     }
 
+    info!("Contracts copied to: {:?}", contracts_src_dir);
+
     Ok(())
 }
