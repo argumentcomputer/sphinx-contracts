@@ -13,7 +13,7 @@ forge install lurk-lab/sphinx-contracts --no-commit
 This section outlines the steps required to update the Sphinx contracts repository with a new Sphinx version.
 Follow these instructions to ensure the Sphinx contracts are correctly updated and aligned with the latest version.
 
-1. Change the version tag in `Cargo.toml` to the target `sphinx` version.
+1. Change the branch in `Cargo.toml` to the target `sphinx` branch.
 
 ```toml
 [dependencies]
@@ -28,4 +28,4 @@ cargo update
 cargo run --bin artifacts
 ```
 
-4. Open a PR to commit the changes to `main`.
+3. Open a PR to commit the changes to `main`.
