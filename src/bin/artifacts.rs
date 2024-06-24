@@ -8,7 +8,7 @@ fn main() -> Result<()> {
 
     setup_logger();
 
-    let artifacts_dir = try_install_plonk_bn254_artifacts(true);
+    let artifacts_dir = try_install_plonk_bn254_artifacts(false);
 
     info!("Artifacts installed to: {:?}", artifacts_dir);
 

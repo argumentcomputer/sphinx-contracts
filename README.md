@@ -25,7 +25,7 @@ sphinx-sdk = { git = "ssh://git@github.com/lurk-lab/sphinx", branch = "<BRANCH>"
 ```bash
 cargo update
 
-cargo run --bin artifacts
+cargo run --bin artifacts --release
 ```
 
 3. Open a PR to commit the changes to `main`.
