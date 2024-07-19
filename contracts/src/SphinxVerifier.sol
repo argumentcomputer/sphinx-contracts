@@ -7,6 +7,8 @@ import {PlonkVerifier} from "./PlonkVerifier.sol";
 /// @title Sphinx Verifier
 /// @notice This contracts implements a solidity verifier for Sphinx.
 contract SphinxVerifier is PlonkVerifier {
+    error InvalidProof();
+
     function VERSION() external pure returns (string memory) {
         return "TODO";
     }
@@ -26,6 +28,9 @@ contract SphinxVerifier is PlonkVerifier {
         uint256[] memory inputs = new uint256[](2);
         inputs[0] = uint256(vkey);
         inputs[1] = uint256(publicValuesDigest);
-        this.Verify(proofBytes, inputs);
+        bool success = this.Verify(proofBytes, inputs);
+        if (!success) {
+            revert InvalidProof();
+        }
     }
 }
