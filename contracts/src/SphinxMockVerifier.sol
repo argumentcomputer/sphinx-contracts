@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.25;
+pragma solidity ^0.8.19;
 
 import {ISphinxVerifier} from "./ISphinxVerifier.sol";
 
@@ -12,7 +12,11 @@ contract SphinxMockVerifier is ISphinxVerifier {
 
     /// @notice Verifies a mock proof with given public values and vkey.
     /// @param proofBytes The proof of the program execution the Sphinx zkVM encoded as bytes.
-    function verifyProof(bytes32, bytes memory, bytes memory proofBytes) external pure {
+    function verifyProof(
+        bytes32,
+        bytes memory,
+        bytes memory proofBytes
+    ) external pure {
         assert(proofBytes.length == 0);
     }
 }
