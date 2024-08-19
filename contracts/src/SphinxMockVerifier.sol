@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.25;
+pragma solidity ^0.8.19;
 
 import {ISphinxVerifier} from "./ISphinxVerifier.sol";
 
@@ -7,7 +7,11 @@ import {ISphinxVerifier} from "./ISphinxVerifier.sol";
 /// @notice This contracts implements a Mock solidity verifier for Sphinx.
 contract SphinxMockVerifier is ISphinxVerifier {
     function VERSION() external pure returns (string memory) {
-        return "TODO";
+        return "v1.0.8-testnet";
+    }
+
+    function VERIFIER_HASH() external pure returns (bytes32) {
+        return bytes32(0);
     }
 
     /// @notice Verifies a mock proof with given public values and vkey.
