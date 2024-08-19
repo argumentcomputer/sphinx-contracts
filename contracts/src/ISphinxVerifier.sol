@@ -15,11 +15,7 @@ interface ISphinxVerifier {
     /// @param vkey The verification key for the RISC-V program.
     /// @param publicValues The public values encoded as bytes.
     /// @param proofBytes The proof of the program execution the Sphinx zkVM encoded as bytes.
-    function verifyProof(
-        bytes32 vkey,
-        bytes calldata publicValues,
-        bytes calldata proofBytes
-    ) external view;
+    function verifyProof(bytes32 vkey, bytes calldata publicValues, bytes calldata proofBytes) external view;
 }
 
 interface ISphinxVerifierWithHash is ISphinxVerifier {
