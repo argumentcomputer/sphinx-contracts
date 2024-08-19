@@ -25,10 +25,6 @@ contract SphinxVerifier is PlonkVerifier, ISphinxVerifierWithHash {
     function VERIFIER_HASH() public pure returns (bytes32) {
         return 0xa85584421f65614b1a4590b95e0dc0d96e13a857b42003fca49069f2e3ddac32;
     }
-    function VKEY_HASH() public pure returns (bytes32) {
-        // TODO
-        return 0x0;
-    }
 
     /// @notice Hashes the public values to a field elements inside Bn254.
     /// @param publicValues The public values.

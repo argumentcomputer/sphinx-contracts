@@ -10,7 +10,7 @@ contract SphinxMockVerifier is ISphinxVerifier {
         return "v1.0.8-testnet";
     }
 
-    function VKEY_HASH() external pure returns (bytes32) {
+    function VERIFIER_HASH() external pure returns (bytes32) {
         return bytes32(0);
     }
 
