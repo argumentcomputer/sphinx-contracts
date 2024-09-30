@@ -18,12 +18,12 @@ contract SphinxVerifier is PlonkVerifier, ISphinxVerifierWithHash {
     error InvalidProof();
 
     function VERSION() external pure returns (string memory) {
-        return "v1.0.8-testnet";
+        return "v1.0.8.2-testnet";
     }
 
     /// @inheritdoc ISphinxVerifierWithHash
     function VERIFIER_HASH() public pure returns (bytes32) {
-        return 0xa85584421f65614b1a4590b95e0dc0d96e13a857b42003fca49069f2e3ddac32;
+        return 0x7f8918dfa9ee648f8bbe7580f87e29fbee8a4b69061186bc3dde9e7357f67c09;
     }
 
     /// @notice Hashes the public values to a field elements inside Bn254.
