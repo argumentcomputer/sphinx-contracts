@@ -1,4 +1,4 @@
-module plonk_verifier_addr::utilities {
+module plonk_verifier_addr::utilities_core {
     use aptos_std::crypto_algebra::{Element, one, mul, deserialize, serialize, scalar_mul, add};
     use std::bn254_algebra::{Fr, FormatFrMsb, G1, FormatG1Uncompr, G2, FormatG2Uncompr};
     use std::vector::{length, push_back, append, trim, reverse, slice};

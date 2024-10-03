@@ -1,7 +1,7 @@
-module plonk_verifier_addr::plonk_verifier {
+module plonk_verifier_addr::plonk_verifier_core {
     use std::vector;
     use std::hash::{ sha2_256 };
-    use plonk_verifier_addr::utilities::{append_value, bytes_to_uint256, powSmall, u256_to_fr, fr_to_u256, u256_to_bytes, new_g1, new_g2, point_acc_mul, prepare_pairing_g1_input, fr_acc_mul, get_coordinates, unset_first_bit};
+    use plonk_verifier_addr::utilities_core::{append_value, bytes_to_uint256, powSmall, u256_to_fr, fr_to_u256, u256_to_bytes, new_g1, new_g2, point_acc_mul, prepare_pairing_g1_input, fr_acc_mul, get_coordinates, unset_first_bit};
     use std::bn254_algebra::{FormatFrMsb, Fr, G1, G2, Gt};
     use std::vector::{length, push_back, trim, reverse, pop_back};
     use aptos_std::crypto_algebra::{add, deserialize, Element, mul, one, zero, multi_pairing, eq, scalar_mul};
