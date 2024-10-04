@@ -27,7 +27,8 @@ cp ~/.sp1/circuits/plonk_bn254/<VERSION>/*.sol contracts/src/
 The Move contracts need to be updated manually, by looking at actual Solidity diff.
 Usually contracts update is actually a changing of the constants' values.
 
-In order to test the new version of contracts, generate proof using new sphinx version:
+In order to test the new version of contracts, copy the newly compiled ELF file from [fibonacci integration](https://github.com/argumentcomputer/sphinx/tree/dev/tests/fibonacci/elf)
+test to the root path of this repository and generate proof using new correspondent sphinx version:
 
 ```
 RUST_LOG=info cargo run --package sphinx-proof --release
