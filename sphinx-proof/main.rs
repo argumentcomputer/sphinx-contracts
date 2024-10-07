@@ -1,4 +1,3 @@
-use itertools::Itertools;
 use sha2::{Digest, Sha256};
 use sphinx_sdk::utils::setup_logger;
 use sphinx_sdk::{
@@ -83,7 +82,7 @@ fn main() {
     let mut stdin = SphinxStdin::new();
     stdin.write(&Vec::<u8>::new());
 
-    let (pk, vk) = prover.setup(include_bytes!("../riscv32im-succinct-zkvm-elf"));
+    let (pk, vk) = prover.setup(include_bytes!("fibonacci-elf/riscv32im-succinct-zkvm-elf"));
     let proof = prover.prove(&pk, stdin).plonk().run().unwrap();
     prover.verify(&proof, &vk).unwrap();
 
