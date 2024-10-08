@@ -1,31 +1,58 @@
-# Solidity contracts for Sphinx
+# Smart contracts for Sphinx
 
-This repository contains Solidity contracts required for on-chain verification of [Sphinx](https://github.com/lurk-lab/sphinx) proofs.
+This repository contains smart contracts required for on-chain verification of [Sphinx](https://github.com/lurk-lab/sphinx) proofs.
 
-To install these contracts in your Foundry project:
+To install Solidity contracts in your Foundry project:
 
 ```
-forge install lurk-lab/sphinx-contracts --no-commit
+forge install argumentcomputer/sphinx-contracts --no-commit
 ```
 
-### Updating the contracts
+To install Move contracts, add following dependency to your Move.toml file:
 
-This section outlines the steps required to update the Sphinx contracts repository with a new Sphinx version.
-Follow these instructions to ensure the Sphinx contracts are correctly updated and aligned with the latest version.
-
-1. Change the branch in `Cargo.toml` to the target `sphinx` branch.
-
-```toml
-[dependencies]
-sphinx-sdk = { git = "ssh://git@github.com/lurk-lab/sphinx", branch = "<BRANCH>" }
+```
+plonk-core = { git = "https://github.com/argumentcomputer/sphinx-contracts.git", rev = "main", subdir = "move" }
 ```
 
-2. Update `artifacts` program with the new verifier contracts.
+and also use `plonk_verifier_addr`
 
-```bash
-cargo update
+# Updating the contracts
 
-cargo run --bin artifacts --release
+To update the Solidity contracts, just download Sphinx artifacts using specific version and copy *.sol files into `contracts/src`:
+```
+wget https://sphinx-plonk-params.s3.amazonaws.com/<VERSION>.tar.gz
+cp ~/.sp1/circuits/plonk_bn254/<VERSION>/*.sol contracts/src/
 ```
 
-3. Open a PR to commit the changes to `main`.
+The Move contracts need to be updated manually, by looking at actual Solidity diff.
+Usually contracts update is actually a changing of the constants' values.
+
+In order to test the new version of contracts, copy the newly compiled ELF file from [fibonacci integration](https://github.com/argumentcomputer/sphinx/tree/dev/tests/fibonacci/elf)
+test to the `sphinx-proof/fibonacci-elf` path of this repository and generate proof using new correspondent sphinx version:
+
+```
+RUST_LOG=info cargo run --package sphinx-proof --release
+```
+
+then copy-paste output to the relevant places in Move / Solidity tests.
+
+Finally, to test updated Solidity contracts:
+
+```
+cd contracts
+forge test
+```
+
+and Move contracts:
+
+```
+aptos move compile --named-addresses plonk_verifier_addr=testnet
+aptos move test --named-addresses plonk_verifier_addr=testnet
+```
+
+Additionally, it is necessary to publish (deploy) Move contract in order to re-use it as a dependency in higher-level project (in Aptos testnet):
+
+```
+aptos move publish --named-addresses plonk_verifier_addr=testnet --profile testnet --assume-yes
+```
+

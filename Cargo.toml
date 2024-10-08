@@ -1,14 +1,14 @@
 [package]
-name = "sp1-contracts"
+name = "sphinx-proof"
 version = "0.1.0"
 edition = "2021"
 
 [[bin]]
-name = "artifacts"
-path = "src/bin/artifacts.rs"
+name = "sphinx-proof"
+path = "sphinx-proof/main.rs"
 
 [dependencies]
-anyhow = "1.0.86"
-dotenv = "0.15.0"
-log = "0.4.21"
-sphinx-sdk = { git = "ssh://git@github.com/lurk-lab/sphinx", tag = "v1.0.0" }
+sphinx-sdk = { git = "https://github.com/argumentcomputer/sphinx", branch = "dev", features = ["plonk"] }
+hex = "0.4.3"
+sha2 = "0.9"
+itertools = "0.12.1"
