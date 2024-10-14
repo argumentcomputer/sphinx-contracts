@@ -9,8 +9,9 @@ on:
 
 jobs:
   solidity:
-    runs-on: buildjet-16vcpu-ubuntu-2204
+    runs-on: warp-ubuntu-latest-x64-16x
     steps:
+      - uses: actions/checkout@v4
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
         with:
@@ -18,20 +19,21 @@ jobs:
       - name: Check formatting
         run: |
           forge fmt --check
-        working-directory: ${{ github.workspace }}/contracts/
+        working-directory: ${{ github.workspace }}/solidity/
       - name: Run Forge build
         run: |
           forge --version
           forge build
-        working-directory: ${{ github.workspace }}/contracts/
+        working-directory: ${{ github.workspace }}/solidity/
       - name: Run Forge tests
         run: |
           forge test
-        working-directory: ${{ github.workspace }}/contracts/
+        working-directory: ${{ github.workspace }}/solidity/
 
   move:
-    runs-on: buildjet-16vcpu-ubuntu-2204
+    runs-on: warp-ubuntu-latest-x64-16x
     steps:
+      - uses: actions/checkout@v4
       - name: Install Move
         run: |
           python3 --version
