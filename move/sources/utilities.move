@@ -16,6 +16,7 @@ module plonk_verifier_addr::utilities_core {
 
     const VK_BYTES_SIZE: u64 = 32;
     const PROOF_CHUNK_BYTE_SIZE: u64 = 32;
+    const VERSION_1082_TESTNET: u256 = 0x7f8918df;
 
     public fun validate_fixture_data(sphinx_proof: vector<u8>, sphinx_vkey: vector<u8>): (vector<u256>, u256) {
         assert!(length(&sphinx_vkey) == VK_BYTES_SIZE, ERROR_LENGTH_VK);
@@ -27,10 +28,9 @@ module plonk_verifier_addr::utilities_core {
         let vkey: u256 = bytes_to_uint256(sphinx_vkey);
 
         // check hardcoded plonk verifier hash
-        let expected_version: u256 = 0x7f8918df; // corresponds to v1.0.8.2-testnet artifacts
         let actual_version = slice(&sphinx_proof, 0, 4);
         let actual_version: u256 = bytes_to_uint256(actual_version);
-        assert!(expected_version == actual_version, ERROR_SPHINX_PROOF_VERSION);
+        assert!(VERSION_1082_TESTNET == actual_version, ERROR_SPHINX_PROOF_VERSION);
 
         // convert proof
         let i = 0;
