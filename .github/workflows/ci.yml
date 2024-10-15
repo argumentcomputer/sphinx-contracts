@@ -1,0 +1,65 @@
+name: Sphinx contracts
+on:
+  merge_group:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    types: [ opened, synchronize, reopened, ready_for_review ]
+
+jobs:
+  solidity:
+    runs-on: warp-ubuntu-latest-x64-16x
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+      - name: Check formatting
+        run: |
+          forge fmt --check
+        working-directory: ${{ github.workspace }}/solidity/
+      - name: Run Forge build
+        run: |
+          forge --version
+          forge build
+        working-directory: ${{ github.workspace }}/solidity/
+      - name: Run Forge tests
+        run: |
+          forge test
+        working-directory: ${{ github.workspace }}/solidity/
+
+  move:
+    runs-on: warp-ubuntu-latest-x64-16x
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Move
+        run: |
+          python3 --version
+          curl -fsSL "https://aptos.dev/scripts/install_cli.py" | python3
+          echo "PATH=$HOME/.local/bin:$PATH" | tee -a $GITHUB_ENV
+      - name: Check Aptos account balance
+        id: check_balance
+        run: |
+          balance_output=$(aptos account balance --profile testnet)
+          echo "Balance output: $balance_output"
+          
+          balance=$(echo $balance_output | jq '.Result[0].balance')
+          echo "Balance value: $balance"
+          
+          if [ "$balance" -lt 100000000 ]; then
+            echo "Balance is below threshold. Funding the account..."
+            aptos account fund-with-faucet --profile testnet
+          else
+            echo "Balance is sufficient. No action needed."
+          fi
+        working-directory: ${{ github.workspace }}/move
+      - name: Run unit tests
+        run: |
+          aptos move test --named-addresses plonk_verifier_addr=testnet
+        working-directory: ${{ github.workspace }}/move
+      - name: Publish
+        run: |
+          aptos move publish --named-addresses plonk_verifier_addr=testnet --profile testnet --assume-yes
+        working-directory: ${{ github.workspace }}/move
