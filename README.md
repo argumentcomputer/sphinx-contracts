@@ -5,7 +5,7 @@ This repository contains smart contracts required for on-chain verification of [
 To install Solidity contracts in your Foundry project:
 
 ```
-forge install argumentcomputer/sphinx-contracts --no-commit
+forge install argumentcomputer/sphinx-contracts@main --no-commit
 ```
 
 To install Move contracts, add following dependency to your Move.toml file:
@@ -35,6 +35,12 @@ RUST_LOG=info cargo run --package sphinx-proof --release
 ```
 
 then copy-paste output to the relevant places in Move / Solidity tests.
+
+You also need to update manually the version tag in `VERSION()` function and the value of the hash in the `VERIFIER_HASH()` function
+from `solidity/src/SphinxVerifier.sol`. In Move contracts the verifier hash is stored in `VERSION_1082_TESTNET` constant from `move/sources/utilities.move` source file.
+
+The first value can be taken directly from [Sphinx](https://github.com/argumentcomputer/sphinx/blob/dev/core/src/lib.rs#L33),
+while the second is printed while running `sphinx-proof` program.
 
 Finally, to test updated Solidity contracts:
 
