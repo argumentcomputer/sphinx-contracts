@@ -86,6 +86,16 @@ fn main() {
     let proof = prover.prove(&pk, stdin).plonk().run().unwrap();
     prover.verify(&proof, &vk).unwrap();
 
+    match &proof.proof {
+        sphinx_sdk::SphinxProof::Plonk(pr) => {
+            println!("To update hash from VERIFIER_HASH() function in SphinxVerifier.sol");
+            println!();
+            println!("0x{};", hex::encode(&pr.plonk_vkey_hash));
+            println!();
+        }
+        _ => unreachable!(),
+    };
+
     print_solidity(&vk, &proof);
     print_move(&vk, &proof);
 }
