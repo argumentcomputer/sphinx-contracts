@@ -13,7 +13,7 @@ fn print_solidity(vk: &SphinxVerifyingKey, proof: &SphinxProofWithPublicValues) 
     );
     println!(
         "bytes private TestPublicValues = abi.encodePacked(hex\"{}\");",
-        proof.public_values.bytes().to_string().as_str()[2..].to_string()
+        proof.public_values.raw().to_string().as_str()[2..].to_string()
     );
     match &proof.proof {
         sphinx_sdk::SphinxProof::Plonk(pr) => {
@@ -41,7 +41,7 @@ fn print_move(vk: &SphinxVerifyingKey, proof: &SphinxProofWithPublicValues) {
     );
 
     let raw_public_values =
-        hex::decode(proof.public_values.bytes().to_string().as_str()[2..].to_string()).unwrap();
+        hex::decode(proof.public_values.raw().to_string().as_str()[2..].to_string()).unwrap();
 
     println!(
         "const SphinxRawPublicValues: vector<u8> = x\"{}\";",
