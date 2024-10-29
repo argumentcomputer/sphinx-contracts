@@ -45,7 +45,7 @@ while the second is printed while running `sphinx-proof` program.
 Finally, to test updated Solidity contracts:
 
 ```
-cd contracts
+cd solidity
 forge test
 ```
 
