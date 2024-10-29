@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {ISphinxVerifier, ISphinxVerifierWithHash} from "../ISphinxVerifier.sol";
+import {ISphinxVerifier, ISphinxVerifierWithHash} from "./ISphinxVerifier.sol";
 import {PlonkVerifier} from "./PlonkVerifier.sol";
 
 /// @title Sphinx Verifier
@@ -23,7 +23,7 @@ contract SphinxVerifier is PlonkVerifier, ISphinxVerifierWithHash {
 
     /// @inheritdoc ISphinxVerifierWithHash
     function VERIFIER_HASH() public pure returns (bytes32) {
-        return 0xcabf0c678980a42fbf0b6847dcae00e8cd893d2f5fb4642eded30e430c836c2a;
+        return 0x7f8918dfa9ee648f8bbe7580f87e29fbee8a4b69061186bc3dde9e7357f67c09;
     }
 
     /// @notice Hashes the public values to a field elements inside Bn254.
